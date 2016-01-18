@@ -3,8 +3,8 @@ angular.module('socially').directive('addNewPartyModal', function (){
 		restrint: 'E',
 		templateUrl: 'client/parties/add-new-party-modal/add-new-party-modal.html',
 		controllerAs: 'addNewPartyModal',
-		controller: function ($scope, $stateParams, $reactive){
-			reactive(this).attach($scope);
+		controller: function ($scope, $stateParams, $reactive, $mdDialog){
+			$reactive(this).attach($scope);
 
 			this.helpers({
 				isLoggedIn : () => {
