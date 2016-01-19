@@ -1,45 +1,45 @@
 angular.module('socially')
-.config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
+  .config(function ($urlRouterProvider, $stateProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 
     $stateProvider
-    .state('parties', {
+      .state('parties', {
         url: '/parties',
         template: '<parties-list></parties-list>'
-    })
-    .state('partyDetails', {
+      })
+      .state('partyDetails', {
         url: '/parties/:partyId',
         template: '<party-details></party-details>',
         resolve: {
-            currentUser: ($q) => {
-                if (Meteor.userId() == null) {
-                    return $q.reject('AUTH_REQUIRED');
-                }
-                else {
-                    return $q.resolve();
-                }
+          currentUser: ($q) => {
+            if (Meteor.userId() == null) {
+              return $q.reject('AUTH_REQUIRED');
             }
+            else {
+              return $q.resolve();
+            }
+          }
         }
-    })
-    .state('login', {
+      })
+      .state('login', {
         url: '/login',
         template: '<login></login>'
-    })
-    .state('register', {
+      })
+      .state('register', {
         url: '/register',
         template: '<register></register>'
-    })
-    .state('resetpw', {
+      })
+      .state('resetpw', {
         url: '/resetpw',
         template: '<resetpw></resetpw>'
-    });
+      });
 
     $urlRouterProvider.otherwise("/parties");
-})
-.run(function ($rootScope, $state) {
+  })
+  .run(function ($rootScope, $state) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-        if (error === 'AUTH_REQUIRED') {
-            $state.go('parties');
-        }
+      if (error === 'AUTH_REQUIRED') {
+        $state.go('parties');
+      }
     });
-});
+  });

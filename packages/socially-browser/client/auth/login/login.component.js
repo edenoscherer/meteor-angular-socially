@@ -1,19 +1,20 @@
-angular.module("socially").directive('resetpw', function() {
+angular.module("socially.browser").directive('login', function() {
   return {
     restrict: 'E',
-    templateUrl: 'client/auth/reset-password/reset-password.html',
-    controllerAs: 'resetpw',
+    templateUrl: '/packages/socially-browser/client/auth/login/login.html',
+    controllerAs: 'login',
     controller: function ($scope, $reactive, $state) {
       $reactive(this).attach($scope);
 
       this.credentials = {
-        email: ''
+        email: '',
+        password: ''
       };
 
       this.error = '';
 
-      this.reset = () => {
-        Accounts.forgotPassword(this.credentials, (err) => {
+      this.login = () => {
+        Meteor.loginWithPassword(this.credentials.email, this.credentials.password, (err) => {
           if (err) {
             this.error = err;
           }
